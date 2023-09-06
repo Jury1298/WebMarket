@@ -15,6 +15,24 @@
 <link rel="stylesheet" href="./resource/css/bootstrap.min.css"/>
 <meta charset="UTF-8">
 <title>상품 상세 정보</title>
+
+<!-- 장바구니에 추가하기 위한 핸들러 함수 -->
+<script type="text/javascript">
+	function addToCart() {
+		/* confirm()함수는 사용자의 선택을 할 때 사용하면 된다 */
+		if(confirm("해당 상품을 장바구니에 추가하시겠습니까?")){
+			document.addForm.submit();
+		}
+		else{
+			document.addForm.reset();
+		}
+		
+	}
+
+</script>
+
+
+
 </head>
 <body>
 	<jsp:include page="menu.jsp"/>
@@ -52,8 +70,11 @@
 				<p><b>재고 수 : </b><%=product.getUnitInStock() %></p>
 				<h4><%=product.getUnitPrice() %>원</h4>
 				
-				<p><a href="#" class="btn btn-info">상품주문&raquo;</a>
-				<a href="./products.jsp" class="btn btn-secondary">상품 목록&raquo;</a></p>
+				<p><form name="addForm" action="./addCart.jsp?id=<%= product.getProductId()%>" method="post"></form>
+					<!-- 상품 주문을 클릭하면 자바스크립트의 핸들러 함수 addToCart()호출되도록 만들었다. -->
+					<p><a href="#" class="btn btn-info" onclick="addToCart()">상품주문&raquo;</a>
+					<a href="./cart.jsp" class="btn btn-warning">장바구니&raquo;</a>
+					<a href="./products.jsp" class="btn btn-secondary">상품 목록&raquo;</a></p>
 			</div>
 		</div>
 		<hr>
